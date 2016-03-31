@@ -24,9 +24,9 @@ var cacheBust = module.exports = function cacheBust (options) {
 
 	var querystring;
 	if (options.production) {
-		querystring = options.version;
-	} else {
 		querystring = options.version + '-' + cacheBust.getTimestamp();
+	} else {
+		querystring = options.version;
 	}
 
 	return function (resource, type) {

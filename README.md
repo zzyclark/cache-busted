@@ -47,6 +47,7 @@ cacheBust.handler(app,{
 
 `version`: Use this exact version. Default: null which will make this module look for a package.json in the folder below
 `packageLocation`: Path to the `package.json`. Defaults to `../../package.json`.
+
 `minifiedDir`: path of all your self-minified static file. All the minified file must locate in the same directory with original file.
 
 ## Production Setting
