@@ -1,6 +1,6 @@
 {
   "name": "omni-cache-busted",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "cache buster with simple minified file control",
   "main": "index.js",
   "repository": {
