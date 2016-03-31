@@ -1,9 +1,9 @@
 {
-  "name": "cache-busted",
-  "version": "1.2.0",
-  "description": "A simplistic cache buster that appends the current version for production environments and the current time otherwise (great for development)",
+  "name": "omni-cache-busted",
+  "version": "1.0.0",
+  "description": "cache buster with simple minified file control",
   "main": "index.js",
-  "repository": "git@github.com:davidlanger/cache-bust.git",
+  "repository": "https://github.com/zzyclark/omni-cache-busted",
   "scripts": {
     "test": "node_modules/mocha/bin/mocha"
   },
@@ -15,7 +15,7 @@
     "query",
     "version"
   ],
-  "author": "David Langer",
+  "author": "Clark Zhang",
   "license": "MIT",
   "devDependencies": {
     "mocha": "^2.2.5",

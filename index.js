@@ -9,7 +9,8 @@ var cacheBust = module.exports = function cacheBust (options) {
 	options = options ? {
 		version: options.version || defaults.version,
 		packageLocation: options.packageLocation || defaults.packageLocation,
-		production: options.production || defaults.production,
+		production: options.packageLocation ? require(options.packageLocation).production : require(defaults.packageLocation).production
+		|| defaults.production,
 		minifiedDir: options.minifiedDir || defaults.minifiedDir
 	} : defaults;
 
@@ -29,7 +30,9 @@ var cacheBust = module.exports = function cacheBust (options) {
 	}
 
 	return function (resource, type) {
-		resource = restructUrl(resource, options.minifiedDir);
+		if (!options.production) {
+			resource = cacheBust.restructUrl(resource, options.minifiedDir);
+		}
 		type = type || getType(resource);
 		if (type === 'js' || type === 'jsx') {
 			return '<script src="' + resource + '?v=' + querystring + '"></script>';
@@ -53,12 +56,13 @@ cacheBust.restructUrl = function (url, minifiedDir) {
 	if (0 === minifiedDir.length) {
 		return url;
 	} else {
-		minifiedDir.forEach(function (dir) {
-			if (url.indexOf(dir) > -1) {
+		for (var i = 0, lgh = minifiedDir.length; i < lgh; ++i) {
+			if (url.indexOf(minifiedDir[i]) > -1) {
 				url = url.replace('.min', '');
-				return url;
+				break;
 			}
-		})
+		}
+		return url;
 	}
 };
 
