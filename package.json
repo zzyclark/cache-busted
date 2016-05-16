@@ -22,7 +22,8 @@
   "license": "MIT",
   "devDependencies": {
     "mocha": "^2.2.5",
-    "sinon": "^1.14.1"
+    "sinon": "^1.14.1",
+    "express": "~4.13.4"
   },
   "bugs": {
     "url": "https://github.com/zzyclark/omni-cache-busted/issues"

@@ -3,7 +3,6 @@ var express = require('express');
 var assert = require('assert');
 var mocha = require('mocha');
 var sinon = require('sinon');
-var express = require('express');
 
 describe('cacheBust', function () {
 	beforeEach(function () {
@@ -23,43 +22,35 @@ describe('cacheBust', function () {
 		});
 	});
 
-	describe('when NODE_ENV is set to production', function () {
-		var previousEnv;
-		beforeEach(function () {
-			previousEnv = process.env.NODE_ENV;
-			process.env.NODE_ENV = 'production';
-		});
-		afterEach(function () {
-			process.env.NODE_ENV = previousEnv;
-		});
+	describe('default production set to false', function () {
 		it('should not append a timestamp', function () {
-			var fn = cacheBust({ packageLocation: './test/package-test.json' });
+			var fn = cacheBust({ packageLocation: './test/package-test-dev.json' });
 			var out = fn('/scripts/app.js');
-			assert.equal(out, '<script src="/scripts/app.js?v=1.0.0"></script>');
+			assert.equal(out, '<script src="/scripts/app.js?v=1.0.0" type="text/javascript"></script>');
 		});
 	});
 
 	it('should generate a script tag for js files', function () {
 		var fn = cacheBust({ packageLocation: './test/package-test.json' });
 		var out = fn('/scripts/app.js');
-		assert.equal(out, '<script src="/scripts/app.js?v=1.0.0-12345"></script>');
+		assert.equal(out, '<script src="/scripts/app.js?v=1.0.0-12345" type="text/javascript"></script>');
 	});
 
 	it('should generate a script tag for jsx files', function () {
 		var fn = cacheBust({ packageLocation: './test/package-test.json' });
 		var out = fn('/scripts/app.jsx');
-		assert.equal(out, '<script src="/scripts/app.jsx?v=1.0.0-12345"></script>');
+		assert.equal(out, '<script src="/scripts/app.jsx?v=1.0.0-12345" type="text/javascript"></script>');
 	});
 
 	it('should generate a link tag for css files', function () {
 		var fn = cacheBust({ packageLocation: './test/package-test.json' });
 		var out = fn('/scripts/style.css');
-		assert.equal(out, '<link rel="stylesheet" href="/scripts/style.css?v=1.0.0-12345" />');
+		assert.equal(out, '<link rel="stylesheet" href="/scripts/style.css?v=1.0.0-12345" type="text/css"/>');
 	});
 
 	it('should use a type argument if given', function () {
 		var fn = cacheBust({ packageLocation: './test/package-test.json' });
 		var out = fn('/scripts/app', 'js');
-		assert.equal(out, '<script src="/scripts/app?v=1.0.0-12345"></script>');
+		assert.equal(out, '<script src="/scripts/app?v=1.0.0-12345" type="text/javascript"></script>');
 	});
 });
